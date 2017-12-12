@@ -160,7 +160,6 @@ def player_input(player):
 
 
         if not check:
-            print(check)
             if player == player1_name:
                 board[next_move] = player1_letter
                 break
