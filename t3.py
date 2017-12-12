@@ -143,9 +143,21 @@ def player_input(player):
     global board
     while True:
         print(" Enter the number for the box you'd like to take...")
-        next_move = int(input(">>> "))
+        try:
+            next_move = int(input(">>> "))
+        except ValueError:
+            print(" Sorry, choose a number between 1 and 9")
+            continue
+
+
         next_move -= 1
-        check = space_check(board, next_move)
+
+        try:
+            check = space_check(board, next_move)
+        except IndexError:
+            print(" Sorry, choose a number between 1 and 9")
+            continue
+
 
         if not check:
             print(check)
