@@ -86,12 +86,21 @@ def place_marker(in_board, marker, position):
 
 
 def replay():
+    """
+    Check if the player wants to play again
+    """
     print(" Would you like to setup another game? [Type Yes/No]")
-    new_game = input(">>> ")
-    new_game = new_game.lower()
-    if new_game[0] == "n":
-        return False
-    return True
+    while True:
+        new_game = input(">>> ")
+        new_game = new_game.lower()
+        if new_game[0] == "n":
+            return False
+            break
+        elif new_game[0] == "y":
+            return True
+            break
+        else:
+            print(' Please enter "yes" or "no"')
 
 
 def win_check(board, mark):
