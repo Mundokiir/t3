@@ -1,29 +1,42 @@
-from random import *
-import time
+from random import * # Inport the random number function
+import time # Import time so we can add some minor delays. Feels better this way.
 
-game_on = True
+# We'll use sys here to make sure we are using python 3. Might be a good idea to improve on this somehow.
+import sys
+if sys.version_info[0] < 3:
+    raise RuntimeError ("Must be using Python 3")
 
 def init_board():
+    """
+    Function to initalize the game board with numbers
+    """
     global board
-    board = [1, 2, 3, 4, 5, 6, 7, 8, 9] # pylint: disable=invalid-name
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 def player_names():
     """
     Asks players for their names and sets them to global variables
     """
-    global player1_name 
-    player1_name = input(" Player one, what is your name? \n>>> ")
-    global player2_name
-    player2_name = input(" Player two, what is your name? \n>>> ")
+    while True:
+        global player1_name 
+        player1_name = input(" Player one, what is your name? \n>>> ")
+        global player2_name
+        player2_name = input(" Player two, what is your name? \n>>> ")
+        # Check if player names match to avoid confusion
+        if player1_name == player2_name:
+            print (" Sorry, both players can not share the same exact name. Try again! (Maybe use lastnames too?)")
+        else:
+            break
 
 def who_goes_first(p1, p2):
     """
-    Accepts two names, generates two random numbers, and compares these to decide who goes first
+    Accepts two names and plays odds and evens to decide who goes first
+    We use 1, 101 here to ensure each player has exactly a 50% chance
     """
     global first
     global second
     global player_turn
-    rand = randint(1, 100)
+    rand = randint(1, 101)
     if rand % 2 == 0:
         first = p1
         second = p2
@@ -54,8 +67,9 @@ def xo_check():
     global player2_letter
     global player_letter
     while True:
+        print(" Please choose if you would like to be 'X' or 'O': ")
         player_letter = str(input(">>> "))
-        player_letter = player_letter.capitalize()
+        player_letter = player_letter.capitalize() # Capital letters look better
         if player_letter == "X" or player_letter == "O":
             if player1_name == first:
                 if player_letter == "X":
@@ -77,17 +91,10 @@ def xo_check():
                     break
         else:
             print(" You seem to have entered something other than an 'X' or an 'O'... try again!")
-            print(" Please choose if you would like to be 'X' or 'O': ")
-
-
-def place_marker(in_board, marker, position):
-    global board
-    board[position] = marker
-
 
 def replay():
     """
-    Check if the player wants to play again
+    Check if the players want to play again
     """
     print(" Would you like to setup another game? [Type Yes/No]")
     while True:
@@ -95,10 +102,8 @@ def replay():
         new_game = new_game.lower()
         if new_game[0] == "n":
             return False
-            break
         elif new_game[0] == "y":
             return True
-            break
         else:
             print(' Please enter "yes" or "no"')
 
@@ -184,6 +189,8 @@ def player_input(player):
 
 # Now run the game
 while True:
+    game_on = True
+
     print(' Welcome to Tic Tac Toe!')
 
     player_names()
