@@ -1,7 +1,6 @@
-from random import * # Inport the random number function
+from random import *
 import time # Import time so we can add some minor delays. Feels better this way.
 
-# We'll use sys here to make sure we are using python 3. Might be a good idea to improve on this somehow.
 import sys
 if sys.version_info[0] < 3:
     raise RuntimeError ("Must be using Python 3")
